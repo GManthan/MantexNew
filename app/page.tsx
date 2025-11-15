@@ -1,4 +1,47 @@
+'use client'
+
+import { useState } from 'react'
+
 export default function Home() {
+  const [formStatus, setFormStatus] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setFormStatus('')
+    
+    const formData = new FormData(e.currentTarget)
+    formData.append("access_key", "e6fd6fb9-47f2-4686-b73e-b9da28e22a83")
+
+    const object = Object.fromEntries(formData)
+    const json = JSON.stringify(object)
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: json
+      })
+      
+      const result = await response.json()
+      
+      if (result.success) {
+        setFormStatus('success')
+        ;(e.target as HTMLFormElement).reset()
+      } else {
+        setFormStatus('error')
+      }
+    } catch (error) {
+      console.error('Form submission error:', error)
+      setFormStatus('error')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-50">
       {/* Navigation */}
@@ -49,12 +92,12 @@ export default function Home() {
                       <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                     </svg>
                   </a>
-                  <a href="#" className="text-slate-600 hover:text-blue-600 transition-colors p-2">
+                  <a href="https://www.linkedin.com/in/manthan-gourshete/" target="_blank" rel="noopener noreferrer" className="text-slate-600 hover:text-blue-600 transition-colors p-2">
                     <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z" clipRule="evenodd"/>
                     </svg>
                   </a>
-                  <a href="#" className="text-slate-600 hover:text-blue-600 transition-colors p-2">
+                  <a href="https://github.com/GManthan" target="_blank" rel="noopener noreferrer" className="text-slate-600 hover:text-blue-600 transition-colors p-2">
                     <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clipRule="evenodd"/>
                     </svg>
@@ -180,7 +223,7 @@ export default function Home() {
                 </div>
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
-                    <span className="text-slate-600">Bronze Medal</span>
+                    <span className="text-slate-600">2nd Runner Up</span>
                     <span className="text-sm text-blue-600 font-medium">Avishkar Zonal Level 2024</span>
                   </div>
                   <div className="flex justify-between items-center">
@@ -189,7 +232,7 @@ export default function Home() {
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-slate-600">National Player</span>
-                    <span className="text-sm text-blue-600 font-medium">Basketball 2020</span>
+                    <span className="text-sm text-blue-600 font-medium">Basketball</span>
                   </div>
                 </div>
                 
@@ -326,9 +369,12 @@ export default function Home() {
                   <div className="w-full h-48 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 rounded-2xl flex items-center justify-center border-2 border-blue-100">
                     <div className="text-center">
                       <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl mx-auto mb-3 flex items-center justify-center">
-                        <span className="text-white text-2xl font-bold">AI</span>
+                        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
                       </div>
-                      <span className="text-slate-500 text-sm font-medium">Project Demo</span>
+                      <span className="text-slate-500 text-sm font-medium">Coming Soon</span>
                     </div>
                   </div>
                 </div>
@@ -365,9 +411,11 @@ export default function Home() {
                   <div className="w-full h-48 bg-gradient-to-br from-purple-50 via-pink-50 to-indigo-50 rounded-2xl flex items-center justify-center border-2 border-purple-100">
                     <div className="text-center">
                       <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl mx-auto mb-3 flex items-center justify-center">
-                        <span className="text-white text-lg font-bold">ASL</span>
+                        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
                       </div>
-                      <span className="text-slate-500 text-sm font-medium">Project Demo</span>
+                      <span className="text-slate-500 text-sm font-medium">Coming Soon</span>
                     </div>
                   </div>
                 </div>
@@ -404,9 +452,11 @@ export default function Home() {
                   <div className="w-full h-48 bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 rounded-2xl flex items-center justify-center border-2 border-emerald-100">
                     <div className="text-center">
                       <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl mx-auto mb-3 flex items-center justify-center">
-                        <span className="text-white text-lg font-bold">IoT</span>
+                        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
                       </div>
-                      <span className="text-slate-500 text-sm font-medium">Project Demo</span>
+                      <span className="text-slate-500 text-sm font-medium">Coming Soon</span>
                     </div>
                   </div>
                 </div>
@@ -500,28 +550,67 @@ export default function Home() {
                 </div>
               </div>
               <div className="floating-card">
-                <form className="space-y-6">
+                <form className="space-y-6" onSubmit={handleSubmit}>
+                  {/* Success Message */}
+                  {formStatus === 'success' && (
+                    <div className="p-4 bg-green-100 border border-green-300 text-green-700 rounded-lg">
+                      <div className="flex items-center">
+                        <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
+                        </svg>
+                        Message sent successfully! I'll get back to you soon.
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Error Message */}
+                  {formStatus === 'error' && (
+                    <div className="p-4 bg-red-100 border border-red-300 text-red-700 rounded-lg">
+                      <div className="flex items-center">
+                        <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd"/>
+                        </svg>
+                        Failed to send message. Please try again.
+                      </div>
+                    </div>
+                  )}
+
                   <div className="form-field">
-                    <input type="text" placeholder=" " required />
+                    <input type="text" name="name" placeholder=" " required />
                     <label>Name</label>
                   </div>
                   <div className="form-field">
-                    <input type="email" placeholder=" " required />
+                    <input type="email" name="email" placeholder=" " required />
                     <label>Email</label>
                   </div>
                   <div className="form-field">
-                    <input type="text" placeholder=" " required />
+                    <input type="text" name="subject" placeholder=" " required />
                     <label>Subject</label>
                   </div>
                   <div className="form-field">
-                    <textarea rows={4} placeholder=" " required></textarea>
+                    <textarea rows={4} name="message" placeholder=" " required></textarea>
                     <label>Message</label>
                   </div>
+                  
+                  {/* Hidden honeypot field for spam protection */}
+                  <input type="checkbox" name="botcheck" className="hidden" style={{display: 'none'}} />
+                  
                   <button 
                     type="submit" 
-                    className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-xl"
+                    disabled={isSubmitting}
+                    className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:transform-none disabled:hover:shadow-lg"
                   >
-                    Send Message
+                    {isSubmitting ? (
+                      <span className="flex items-center justify-center">
+                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Sending...
+                      </span>
+                    ) : (
+                      'Send Message'
+                    )}
                   </button>
                 </form>
               </div>
