@@ -28,9 +28,9 @@ export default function Home() {
         {/* Nav */}
         <nav style={{ position: 'fixed', top: 0, width: '100%', zIndex: 50, background: 'rgba(11,15,20,0.88)', backdropFilter: 'blur(12px)', borderBottom: '1px solid var(--border)' }}>
           <div className="container-width" style={{ padding: '0 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: 54 }}>
-            <span style={{ fontFamily: 'var(--mono)', fontSize: '0.8rem', color: 'var(--accent)', letterSpacing: '0.08em' }}>
-              MG<span style={{ color: 'var(--text-muted)' }}>.</span>
-            </span>
+            <a href="#" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+              <img src="/mg-logo.png" alt="MG Logo" style={{ height: 36, width: 'auto', objectFit: 'contain', imageRendering: 'crisp-edges' }} />
+            </a>
             <div className="hidden md:flex" style={{ gap: 30 }}>
               {NAV_LINKS.map(l => (
                 <a key={l} href={`#${l.toLowerCase()}`} style={{ position: 'relative', color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.78rem', letterSpacing: '0.03em', transition: 'color 0.2s' }}

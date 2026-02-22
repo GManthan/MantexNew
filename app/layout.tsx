@@ -13,10 +13,15 @@ export const metadata: Metadata = {
   description: 'Debug Engineer Intern at Jabil (Final Sem B.Tech E&TC). Embedded Systems, Telecom product debug, and Edge AI. Based in Aurangabad, Maharashtra. mantex.me',
   keywords: ['embedded systems', 'debug engineer', 'edge AI', 'IoT', 'firmware', 'ARM', 'STM32', 'PCB debug', 'telecom'],
   authors: [{ name: 'Manthan Gourshete' }],
+  icons: {
+    icon: '/mg-favicon.png',
+    apple: '/mg-favicon.png',
+  },
   openGraph: {
     title: 'Manthan Gourshete | Debug Engineer · Embedded Systems & Edge AI',
     description: 'Debug Engineer specializing in PCB-level fault isolation, Embedded Systems, and Edge AI.',
     type: 'website',
+    images: [{ url: '/mg-logo.png' }],
   },
 }
 
