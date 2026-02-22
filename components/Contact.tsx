@@ -6,7 +6,7 @@ const INFO = [
     { label: 'Email', value: 'manthancg23@gmail.com', href: 'mailto:manthancg23@gmail.com' },
     { label: 'Phone', value: '+91 7020406293', href: 'tel:+917020406293' },
     { label: 'Location', value: 'Aurangabad, Maharashtra', href: undefined },
-    { label: 'LinkedIn', value: 'linkedin.com/in/manthangourshete', href: 'https://linkedin.com/in/manthangourshete' },
+    { label: 'LinkedIn', value: 'linkedin.com/in/manthan-gourshete', href: 'https://www.linkedin.com/in/manthan-gourshete/' },
     { label: 'GitHub', value: 'github.com/GManthan', href: 'https://github.com/GManthan' },
 ]
 

@@ -1,70 +1,114 @@
 'use client'
 import { useFadeUp } from './useFadeUp'
-import { useRef, useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
-const GROUPS = [
+const LAYERS = [
     {
-        cat: 'Embedded Systems',
-        items: [
-            { name: 'ARM7 · LPC2148', pct: 90 }, { name: 'STM32', pct: 82 },
-            { name: 'ESP8266 / NodeMCU', pct: 88 }, { name: 'Embedded C / C++', pct: 91 },
-            { name: 'UART · SPI · I2C · ADC', pct: 88 }, { name: 'FreeRTOS', pct: 70 },
-        ],
+        num: '01', label: 'Hardware Foundation',
+        desc: 'PCB-level fault isolation, signal integrity, power rail analysis',
+        tags: ['ARM7 · LPC2148', 'STM32', 'ESP8266', 'Oscilloscope', 'JTAG', 'Logic Analyser'],
+        from: 'left',
     },
     {
-        cat: 'IoT & Cloud',
-        items: [
-            { name: 'MQTT Protocol', pct: 88 }, { name: 'Firebase RTDB', pct: 85 },
-            { name: 'Node-RED', pct: 72 }, { name: 'Python automation', pct: 84 },
-            { name: 'REST APIs', pct: 78 }, { name: 'Linux Dev Environment', pct: 72 },
-        ],
+        num: '02', label: 'Firmware & RTOS',
+        desc: 'Bare-metal and RTOS-based embedded C/C++ development',
+        tags: ['Embedded C / C++', 'FreeRTOS', 'ADC · UART · SPI · I2C', 'PWM Control', 'Interrupt Handling'],
+        from: 'right',
     },
     {
-        cat: 'Edge AI & ML',
-        items: [
-            { name: 'OpenCV', pct: 85 }, { name: 'TensorFlow Lite', pct: 78 },
-            { name: 'MediaPipe', pct: 80 }, { name: 'Scikit-learn', pct: 72 },
-            { name: 'Model quantization', pct: 68 }, { name: 'NumPy · Pandas', pct: 82 },
-        ],
+        num: '03', label: 'Connectivity',
+        desc: 'Sensor-to-cloud pipelines, protocol design, data transport',
+        tags: ['MQTT', 'Firebase RTDB', 'REST APIs', 'Node-RED', 'Python automation', 'Linux Dev'],
+        from: 'left',
     },
     {
-        cat: 'Debug & Tools',
-        items: [
-            { name: 'Oscilloscope · Logic Analyzer', pct: 88 }, { name: 'JTAG Debugging', pct: 80 },
-            { name: 'Signal & Power Analysis', pct: 85 }, { name: 'Failure Root Cause Analysis', pct: 88 },
-            { name: 'STM32CubeIDE · PlatformIO', pct: 80 }, { name: 'Git · GitHub', pct: 83 },
-        ],
+        num: '04', label: 'Edge Intelligence',
+        desc: 'On-device ML inference below 200ms on microcontroller-class hardware',
+        tags: ['TensorFlow Lite', 'OpenCV', 'MediaPipe', 'Scikit-learn', 'Model quantization', 'UART AI bridge'],
+        from: 'right',
+    },
+    {
+        num: '05', label: 'Visualization & Tools',
+        desc: 'End-to-end toolchain — from IDE to deployment and version control',
+        tags: ['STM32CubeIDE', 'PlatformIO', 'Git · GitHub', 'Firebase Dashboard', 'Root Cause Reports'],
+        from: 'left',
     },
 ]
 
-function Bar({ name, pct }: { name: string; pct: number }) {
+const EXPLORING = [
+    'RTOS-based AI task scheduling',
+    'Model quantization for MCUs',
+    'Low-power inference strategies',
+    'Telecom failure prediction',
+    'Embedded Linux',
+]
+
+function LayerCard({ layer, index }: { layer: typeof LAYERS[0]; index: number }) {
     const ref = useRef<HTMLDivElement>(null)
+
     useEffect(() => {
         const el = ref.current; if (!el) return
-        const fill = el.querySelector('.bar-fill') as HTMLElement; if (!fill) return
         const obs = new IntersectionObserver(([e]) => {
-            if (e.isIntersecting) { fill.style.width = `${pct}%`; obs.disconnect() }
-        }, { threshold: 0.3 })
+            if (e.isIntersecting) {
+                el.style.opacity = '1'
+                el.style.transform = 'translateX(0)'
+                obs.disconnect()
+            }
+        }, { threshold: 0.2 })
         obs.observe(el)
         return () => obs.disconnect()
-    }, [pct])
+    }, [])
+
     return (
-        <div ref={ref} style={{ paddingBottom: 2 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span style={{ fontFamily: 'var(--mono)', fontSize: '0.74rem', color: 'var(--text-secondary)' }}>{name}</span>
-                <span style={{ fontFamily: 'var(--mono)', fontSize: '0.66rem', color: 'var(--text-muted)' }}>{pct}%</span>
-            </div>
-            <div style={{ height: 2, background: 'rgba(255,255,255,0.06)', borderRadius: 1, marginTop: 5 }}>
-                <div className="bar-fill" style={{ height: '100%', background: 'linear-gradient(90deg, var(--accent), rgba(99,179,237,0.4))', borderRadius: 1, width: 0, transition: 'width 1s cubic-bezier(0.4, 0, 0.2, 1)' }} />
+        <div ref={ref} className="stack-layer" style={{
+            transitionDelay: `${index * 0.07}s`,
+            opacity: 0,
+            transform: layer.from === 'left' ? 'translateX(-24px)' : 'translateX(24px)',
+            transition: `opacity 0.55s cubic-bezier(0.22,1,0.36,1) ${index * 0.07}s, transform 0.55s cubic-bezier(0.22,1,0.36,1) ${index * 0.07}s`,
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border)',
+            borderRadius: 8,
+            padding: 0,
+            overflow: 'hidden',
+            cursor: 'default',
+        }}
+            onMouseEnter={e => {
+                (e.currentTarget as HTMLElement).style.borderColor = 'rgba(99,179,237,0.2)'
+                    ; (e.currentTarget as HTMLElement).style.transform = 'translateX(0) translateY(-2px)'
+            }}
+            onMouseLeave={e => {
+                ; (e.currentTarget as HTMLElement).style.borderColor = 'var(--border)'
+                    ; (e.currentTarget as HTMLElement).style.transform = 'translateX(0) translateY(0)'
+            }}
+        >
+            {/* Left accent bar */}
+            <div className="stack-layer-bar" />
+
+            <div style={{ padding: '20px 24px', flex: 1, minWidth: 0 }}>
+                <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'baseline', gap: 8, marginBottom: 10 }}>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 12 }}>
+                        <span style={{
+                            fontFamily: 'var(--mono)', fontSize: '0.68rem', color: 'var(--accent)',
+                            fontWeight: 700, letterSpacing: '0.06em',
+                            textShadow: '2px 2px 0 rgba(99,179,237,0.1), 4px 4px 0 rgba(99,179,237,0.05)'
+                        }}>{layer.num}</span>
+                        <h3 style={{ fontWeight: 600, fontSize: '0.9rem' }}>{layer.label}</h3>
+                    </div>
+                    <span style={{ fontFamily: 'var(--mono)', fontSize: '0.68rem', color: 'var(--text-muted)', textAlign: 'right' }}>{layer.desc}</span>
+                </div>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                    {layer.tags.map(t => (
+                        <span key={t} style={{
+                            fontFamily: 'var(--mono)', fontSize: '0.66rem', padding: '2px 8px',
+                            background: 'rgba(255,255,255,0.04)', border: '1px solid var(--border)',
+                            color: 'var(--text-secondary)', borderRadius: 3,
+                        }}>{t}</span>
+                    ))}
+                </div>
             </div>
         </div>
     )
 }
-
-const EXPLORING = [
-    'RTOS-based AI task scheduling', 'Model quantization for embedded deployment',
-    'Low-power AI inference strategies', 'Telecom hardware failure prediction models', 'Embedded Linux integration',
-]
 
 export default function Skills() {
     const ref = useFadeUp()
@@ -72,29 +116,30 @@ export default function Skills() {
         <section id="skills" className="section-padding">
             <div className="container-width" ref={ref}>
                 <div className="fu" style={{ marginBottom: 36 }}>
-                    <div style={{ fontFamily: 'var(--mono)', fontSize: '0.7rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: 12 }}>005 · Technical Stack</div>
-                    <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: 700, letterSpacing: '-0.02em' }}>Capability Profile</h2>
+                    <div style={{ fontFamily: 'var(--mono)', fontSize: '0.7rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: 12 }}>005 · Engineering Capabilities</div>
+                    <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: 700, letterSpacing: '-0.02em' }}>Integrated Engineering Stack</h2>
+                    <p style={{ color: 'var(--text-secondary)', fontSize: '0.82rem', marginTop: 10 }}>From bare-metal hardware to intelligent edge inference — built layer by layer.</p>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 18, marginBottom: 44 }}>
-                    {GROUPS.map((g, gi) => (
-                        <div key={gi} className="fu" style={{ transitionDelay: `${gi * 0.08}s`, background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 8, padding: '20px 22px' }}>
-                            <div style={{ fontFamily: 'var(--mono)', fontSize: '0.68rem', color: 'var(--accent)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 16 }}>{g.cat}</div>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: 11 }}>
-                                {g.items.map(item => <Bar key={item.name} name={item.name} pct={item.pct} />)}
-                            </div>
-                        </div>
-                    ))}
+                {/* Layered stack */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 44, position: 'relative' }}>
+                    {/* Vertical spine */}
+                    <div style={{
+                        position: 'absolute', left: 0, top: 0, bottom: 0, width: 3,
+                        background: 'linear-gradient(to bottom, transparent, var(--accent) 20%, var(--accent) 80%, transparent)',
+                        opacity: 0.15, borderRadius: 2,
+                    }} />
+                    {LAYERS.map((l, i) => <LayerCard key={i} layer={l} index={i} />)}
                 </div>
 
                 {/* Currently Exploring */}
-                <div className="fu" style={{ transitionDelay: '0.32s' }}>
+                <div className="fu fu-d4">
                     <div style={{ fontFamily: 'var(--mono)', fontSize: '0.7rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: 16 }}>Currently Exploring</div>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
                         {EXPLORING.map((e, i) => (
-                            <div key={i} style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 6, padding: '8px 14px', display: 'flex', alignItems: 'center', gap: 10 }}>
+                            <div key={i} style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 6, padding: '7px 14px', display: 'flex', alignItems: 'center', gap: 9 }}>
                                 <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--accent)', flexShrink: 0, animation: 'blink 2s step-end infinite' }} />
-                                <span style={{ fontFamily: 'var(--mono)', fontSize: '0.75rem', color: 'var(--text-secondary)' }}>{e}</span>
+                                <span style={{ fontFamily: 'var(--mono)', fontSize: '0.73rem', color: 'var(--text-secondary)' }}>{e}</span>
                             </div>
                         ))}
                     </div>

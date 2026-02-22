@@ -1,29 +1,68 @@
 'use client'
 import { useFadeUp } from './useFadeUp'
+import { useRef } from 'react'
 
 const PROJECTS = [
     {
         name: 'Pinchit AI', type: 'Gesture Automation',
         stack: ['OpenCV', 'Python', 'Arduino'],
         metrics: ['90% accuracy', '<200ms inference'],
-        desc: 'Camera-based hand gesture recognition driving Arduino actuators via UART. MediaPipe hand landmark detection → custom classifier → serial actuation pipeline.',
+        desc: 'Camera-based hand gesture recognition driving Arduino actuators via UART. MediaPipe landmarks → custom classifier → serial actuation pipeline.',
         github: 'https://github.com/GManthan',
     },
     {
         name: 'AI Sign Language Translator', type: 'Wearable Embedded',
         stack: ['Arduino', 'Flex Sensors', 'Python', 'ML'],
         metrics: ['92% accuracy', '5-class vocab'],
-        desc: 'Wearable flex-sensor glove streaming ADC data to a Python ML pipeline for gesture classification. Embedded firmware handles sampling; Python handles inference and text output.',
+        desc: 'Flex-sensor glove streams ADC data to a Python ML pipeline. Firmware handles sampling; Python handles inference and text output.',
         github: 'https://github.com/GManthan',
     },
     {
         name: 'Smart IoT Energy Monitor', type: 'Industrial IoT',
         stack: ['NodeMCU', 'MQTT', 'Firebase', 'Python'],
         metrics: ['95% uptime', 'Live sync'],
-        desc: 'Distributed NodeMCU sensor nodes publishing to an MQTT broker. Firebase RTDB aggregates readings; custom web dashboard visualizes real-time power consumption.',
+        desc: 'NodeMCU nodes publish sensor data via MQTT broker. Firebase RTDB aggregates readings; real-time dashboard visualizes power consumption.',
         github: 'https://github.com/GManthan',
     },
 ]
+
+function TiltCard({ children, delay }: { children: React.ReactNode; delay: string }) {
+    const ref = useRef<HTMLDivElement>(null)
+
+    const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        const el = ref.current; if (!el) return
+        const rect = el.getBoundingClientRect()
+        const cx = rect.left + rect.width / 2
+        const cy = rect.top + rect.height / 2
+        const dx = (e.clientX - cx) / (rect.width / 2)
+        const dy = (e.clientY - cy) / (rect.height / 2)
+        // max 3.5 degrees
+        el.style.transform = `perspective(700px) rotateX(${-dy * 3.5}deg) rotateY(${dx * 3.5}deg) translateY(-3px)`
+        el.style.boxShadow = `0 12px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(99,179,237,0.18)`
+        el.style.borderColor = 'rgba(99,179,237,0.22)'
+    }
+    const onLeave = () => {
+        const el = ref.current; if (!el) return
+        el.style.transform = 'perspective(700px) rotateX(0deg) rotateY(0deg) translateY(0)'
+        el.style.boxShadow = 'none'
+        el.style.borderColor = 'var(--border)'
+    }
+
+    return (
+        <div ref={ref} className="fu tilt-card"
+            style={{
+                transitionDelay: delay, background: 'var(--bg-card)',
+                border: '1px solid var(--border)', borderRadius: 8,
+                padding: '22px 24px', display: 'flex', flexDirection: 'column', gap: 12,
+                transition: 'border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s cubic-bezier(0.22,1,0.36,1)',
+            }}
+            onMouseMove={onMove}
+            onMouseLeave={onLeave}
+        >
+            {children}
+        </div>
+    )
+}
 
 export default function Projects() {
     const ref = useFadeUp()
@@ -36,10 +75,7 @@ export default function Projects() {
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))', gap: 18 }}>
                     {PROJECTS.map((p, i) => (
-                        <div key={i} className="fu" style={{ transitionDelay: `${i * 0.09}s`, background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 8, padding: '22px 24px', display: 'flex', flexDirection: 'column', gap: 12, transition: 'border-color 0.2s ease, transform 0.2s ease' }}
-                            onMouseEnter={el => { (el.currentTarget as HTMLElement).style.borderColor = 'rgba(99,179,237,0.25)'; (el.currentTarget as HTMLElement).style.transform = 'translateY(-2px)' }}
-                            onMouseLeave={el => { (el.currentTarget as HTMLElement).style.borderColor = 'var(--border)'; (el.currentTarget as HTMLElement).style.transform = 'translateY(0)' }}
-                        >
+                        <TiltCard key={i} delay={`${i * 0.09}s`}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                                 <div>
                                     <h3 style={{ fontWeight: 600, fontSize: '0.92rem', marginBottom: 3 }}>{p.name}</h3>
@@ -62,7 +98,7 @@ export default function Projects() {
                             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                                 {p.stack.map(s => <span key={s} style={{ fontFamily: 'var(--mono)', fontSize: '0.66rem', padding: '2px 8px', background: 'rgba(255,255,255,0.04)', border: '1px solid var(--border)', color: 'var(--text-secondary)', borderRadius: 3 }}>{s}</span>)}
                             </div>
-                        </div>
+                        </TiltCard>
                     ))}
                 </div>
             </div>

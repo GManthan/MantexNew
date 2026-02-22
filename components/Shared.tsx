@@ -1,3 +1,6 @@
+'use client'
+import { useEffect, useRef } from 'react'
+
 export function PcbBackground() {
     return (
         <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none', opacity: 0.04 }}>
@@ -36,8 +39,49 @@ export function PcbBackground() {
     )
 }
 
+// Divider with expand-on-scroll animation
 export function Divider() {
-    return (
-        <div style={{ height: 1, background: 'linear-gradient(90deg, transparent, var(--border), transparent)' }} />
-    )
+    const ref = useRef<HTMLDivElement>(null)
+    useEffect(() => {
+        const el = ref.current; if (!el) return
+        const obs = new IntersectionObserver(([e]) => {
+            if (e.isIntersecting) { el.classList.add('expanded'); obs.disconnect() }
+        }, { threshold: 0.5 })
+        obs.observe(el)
+        return () => obs.disconnect()
+    }, [])
+    return <div ref={ref} className="exp-divider" />
+}
+
+// Global cursor ring
+export function CursorRing() {
+    const ringRef = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        const ring = ringRef.current; if (!ring) return
+        let rafId: number
+
+        const move = (e: MouseEvent) => {
+            cancelAnimationFrame(rafId)
+            rafId = requestAnimationFrame(() => {
+                ring.style.left = `${e.clientX}px`
+                ring.style.top = `${e.clientY}px`
+                ring.classList.add('visible')
+            })
+        }
+        const enter = () => ring.classList.add('active')
+        const leave = () => ring.classList.remove('active')
+
+        window.addEventListener('mousemove', move, { passive: true })
+
+        const els = document.querySelectorAll('a, button, [role="button"]')
+        els.forEach(el => { el.addEventListener('mouseenter', enter); el.addEventListener('mouseleave', leave) })
+
+        return () => {
+            window.removeEventListener('mousemove', move)
+            cancelAnimationFrame(rafId)
+        }
+    }, [])
+
+    return <div id="cursor-ring" ref={ringRef} />
 }
