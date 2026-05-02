@@ -114,8 +114,8 @@ export default function Home() {
                   Hi, I&apos;m Manthan Gourshete, an Electronics and Telecommunication
                   Engineering student with a love for building{' '}
                   <strong>reliable, enterprise-grade automation</strong> and
-                  performance-driven systems. My journey spans full stack development,
-                  API integration, and embedded engineering—I engineer solutions with a
+                  performance driven systems. My journey spans full stack development,
+                  API integration, and embedded engineering, I engineer solutions with a
                   focus on both{' '}
                   <strong>hardware precision and software scalability</strong>, always
                   keeping efficiency first.
@@ -176,12 +176,12 @@ export default function Home() {
 
               <div className="skill-card">
                 <div className="skill-card-icon">
-                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" /></svg>
                 </div>
                 <h3 className="skill-card-title">Programming &amp; Web</h3>
                 <p className="skill-card-desc">Building robust web applications and APIs from front to back.</p>
                 <div className="skill-tags">
-                  {['Python','C / C++','JavaScript','Next.js','Node.js','HTML / CSS','SQL','Firebase'].map(t => (
+                  {['Python', 'C / C++', 'JavaScript', 'Next.js', 'Node.js', 'HTML / CSS', 'SQL', 'Firebase'].map(t => (
                     <span key={t} className="skill-tag">{t}</span>
                   ))}
                 </div>
@@ -189,12 +189,12 @@ export default function Home() {
 
               <div className="skill-card">
                 <div className="skill-card-icon">
-                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M9 7V4M12 7V4M15 7V4M9 20v-3M12 20v-3M15 20v-3M7 9H4M7 12H4M7 15H4M20 9h-3M20 12h-3M20 15h-3"/></svg>
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="7" y="7" width="10" height="10" rx="1" /><path d="M9 7V4M12 7V4M15 7V4M9 20v-3M12 20v-3M15 20v-3M7 9H4M7 12H4M7 15H4M20 9h-3M20 12h-3M20 15h-3" /></svg>
                 </div>
                 <h3 className="skill-card-title">Embedded Systems</h3>
                 <p className="skill-card-desc">Programming microcontrollers with structured firmware practices.</p>
                 <div className="skill-tags">
-                  {['ARM7 (LPC2148)','STM32','ESP8266','Arduino','Raspberry Pi','Embedded C','FreeRTOS','PlatformIO'].map(t => (
+                  {['ARM7 (LPC2148)', 'STM32', 'ESP8266', 'Arduino', 'Raspberry Pi', 'Embedded C', 'FreeRTOS', 'PlatformIO'].map(t => (
                     <span key={t} className="skill-tag">{t}</span>
                   ))}
                 </div>
@@ -202,12 +202,12 @@ export default function Home() {
 
               <div className="skill-card">
                 <div className="skill-card-icon">
-                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="2 12 6 12 8 5 10 19 12 12 14 15 16 12 22 12"/></svg>
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="2 12 6 12 8 5 10 19 12 12 14 15 16 12 22 12" /></svg>
                 </div>
                 <h3 className="skill-card-title">Hardware Debug &amp; Validation</h3>
                 <p className="skill-card-desc">PCB-level fault isolation, rework, and root cause analysis.</p>
                 <div className="skill-tags">
-                  {['Oscilloscope','Multimeter','Logic Analyser','JTAG','Functional Testing','Rework Validation','Failure Analysis'].map(t => (
+                  {['Oscilloscope', 'Multimeter', 'Logic Analyser', 'JTAG', 'Functional Testing', 'Rework Validation', 'Failure Analysis'].map(t => (
                     <span key={t} className="skill-tag">{t}</span>
                   ))}
                 </div>
@@ -215,12 +215,12 @@ export default function Home() {
 
               <div className="skill-card">
                 <div className="skill-card-icon">
-                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="currentColor"/></svg>
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0" /><path d="M1.42 9a16 16 0 0 1 21.16 0" /><path d="M8.53 16.11a6 6 0 0 1 6.95 0" /><circle cx="12" cy="20" r="1" fill="currentColor" /></svg>
                 </div>
                 <h3 className="skill-card-title">IoT, Protocols &amp; Tools</h3>
                 <p className="skill-card-desc">Reliable device-to-cloud communication at 98%+ consistency.</p>
                 <div className="skill-tags">
-                  {['MQTT','REST APIs','HTTP','UART','SPI','I²C','Git','STM32CubeIDE','System Architecture'].map(t => (
+                  {['MQTT', 'REST APIs', 'HTTP', 'UART', 'SPI', 'I²C', 'Git', 'STM32CubeIDE', 'System Architecture'].map(t => (
                     <span key={t} className="skill-tag">{t}</span>
                   ))}
                 </div>
