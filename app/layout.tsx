@@ -8,8 +8,8 @@ export const metadata: Metadata = {
   keywords: ['embedded systems', 'debug engineer', 'edge AI', 'IoT', 'firmware', 'ARM', 'STM32', 'PCB debug', 'telecom'],
   authors: [{ name: 'Manthan Gourshete' }],
   icons: {
-    icon: '/mg-favicon.png',
-    apple: '/mg-favicon.png',
+    icon: '/mg.png',
+    apple: '/mg.png',
   },
   openGraph: {
     title: 'Manthan Gourshete | Debug Engineer · Embedded Systems & Edge AI',
