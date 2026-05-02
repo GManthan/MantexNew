@@ -1,0 +1,55 @@
+Manthan Gourshete
++91 7020406293|manthancg23@gmail.com|Aurangabad, Maharashtra
+GitHub|LinkedIn
+Profile
+Electronics and Telecommunication Engineering student (Batch 2026) with strong foundations in software architecture,
+scalable data pipelines, and embedded systems. Experienced in full stack development, API integration, and backend
+engineering using Python and Next.js. Passionate about building reliable, enterprise grade automation and performance
+driven engineering systems.
+Education
+Deogiri Institute of Engineering and Management Studies 2022 – 2026
+Bachelor of Technology in Electronics and Telecommunication Engineering
+Vivekanand College 2020 – 2022
+Higher Secondary Certificate (HSC)•88.2%
+Delhi Public School 2019 – 2020
+Secondary School Certificate (SSC)•89.3%
+Experience
+Jabil| Debug Engineer Intern Present
+•Performed PCB level debugging and failure analysis for telecom and embedded products.
+•Diagnosed hardware faults using oscilloscopes, multimeters, and logic analyzers.
+•Supported functional testing, rework validation, and root cause analysis in manufacturing environment.
+Lets Grow Ventures| Technical LeadPresent
+•Led architecture and deployment of embedded automation and software solutions for enterprise client applications.
+•Integrated firmware, sensors, and dashboard systems for scalable monitoring solutions.
+Acmegrade| IoT Intern 4 Months
+•Designed cloud connected IoT systems using ESP8266, MQTT, and Firebase.
+•Implemented reliable device to cloud communication achieving 98% data consistency.
+MSME Technology Center (Indo German Tool Room)| Embedded Systems Intern2 Months
+•Programmed LPC2148 (ARM7) microcontrollers in Embedded C for ADC, UART, and PWM applications.
+•Debugged hardware interfaces using JTAG and structured firmware validation practices.
+Technical Skills
+Programming & Web:Python, C/C++, SQL, JavaScript, Next.js, HTML/CSS
+Backend & Cloud:Firebase, Node.js, REST APIs, System Architecture
+Embedded Systems:ARM7, STM32, ESP8266, Arduino, Raspberry Pi, FreeRTOS (Basics)
+Tools & Protocols:Git, MQTT, HTTP, UART, SPI, I2C, STM32CubeIDE, PlatformIO
+Projects (Industry Deployed)
+Swastik Auto Parts | B2B Data Synchronization Pipeline
+•Engineered an automated data pipeline using Python to synchronize inventory and transactions between legacy BUSY
+accounting software and a modern web frontend.
+•Integrated Next.js and Firebase to deliver real time stock visibility, successfully deployed and actively used in industry.
+Custom Manufacturing ERP & Traceability System (In Progress)
+•Developing a full stack Enterprise Resource Planning (ERP) platform, currently being deployed in industry, to track
+raw material entry and manufacturing processes for a silicone oil facility.
+•Implementing backend workflows and data tracking modules to ensure end to end product traceability across the
+production lifecycle.
+Pinchit AI: Gesture Recognition Automation System
+•Developed real time gesture recognition interface using Python and OpenCV integrated with Arduino.
+•Achieved under 200ms response latency for motor and lighting control.
+Achievements & Extracurriculars
+•Winner–OpenAI x NxtWave Buildathon
+(Zonal)
+•Chairperson–IETE DIEMS (2025–2026)
+•Qualified–India Skills (State Level)
+•Bronze Medal–Avishkar Zonal (2024)
+•Coordinator–Robotics Club
+•National Level Basketball Player

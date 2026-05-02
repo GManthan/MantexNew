@@ -56,7 +56,7 @@ export default function Hero() {
                         textTransform: 'uppercase', color: 'var(--accent)', marginBottom: 24,
                         opacity: 0, animation: 'wordReveal 0.5s ease 0.2s forwards',
                     }}>
-                        Aurangabad, Maharashtra · Open to Relocation
+                        Chh. Sambhajinagar (Aurangabad), Maharashtra · Open to Relocation
                     </div>
 
                     <StaggeredHeadline />
